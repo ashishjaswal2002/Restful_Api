@@ -94,3 +94,18 @@ app.route('/articles').get(function(req,res)
      })
   })
   
+  //add a specific route
+  app.route('/articles/:articleTitle').get(function(req,res){
+
+    
+
+   Article.findOne({title:req.params.articleTitle},function(err,foundArticle){
+       if(foundArticle){
+        res.send(foundArticle)
+       }
+       else{
+        res.send("No such Article found named " + req.params.articleTitle);
+       }
+   });
+
+  });
