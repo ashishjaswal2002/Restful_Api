@@ -62,7 +62,7 @@ app.route('/articles').get(function(req,res)
            console.log(err);
        }else{
            console.log("Successfully saved");
-           res.send("New Article posted")
+           res.send('New Article posted successfully')
        }   })
    
 })
@@ -109,3 +109,5 @@ app.route('/articles').get(function(req,res)
    });
 
   });
+  //371 signing off... 
+  
