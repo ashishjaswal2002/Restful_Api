@@ -39,7 +39,10 @@ const articleSchema = {
 
 const Article = mongoose.model('Article',articleSchema);
 //WHen a client request the server that i want all the articles.. 
-app.get("/articles",function(req,res){
+//Creating Routes for all articles..
+app.route('/articles').get(function(req,res)
+
+{
     Article.find(function(err,foundArticle){
         if(!err){
             res.send(foundArticle);
@@ -47,24 +50,39 @@ app.get("/articles",function(req,res){
       res.send(err.message);
         }
     });
+}).post(function (req, res)
+{
+   const newArticle = new Article({
+       title:req.body.title,
+       content:req.body.content      
+   }) ;
+
+   newArticle.save(function(err){
+       if(err){
+           console.log(err);
+       }else{
+           console.log("Successfully saved");
+           res.send("New Article posted")
+       }   })
+   
 })
+.delete(function(req,res){
+    Article.deleteMany(function(err){
+       if(err){
+           res.send("Error: " + err.message);
+       }else{
+          res.send("Successfully deleted");
+       }
+    })
+ });
+
+
+
+
+
 
 //Post request  to the server
-app.post('/articles', function (req, res) {
-    const newArticle = new Article({
-        title:req.body.title,
-        content:req.body.content      
-    }) ;
 
-    newArticle.save(function(err){
-        if(err){
-            console.log(err);
-        }else{
-            console.log("Successfully saved");
-        }
-    })
-    
-  });
 
   app.delete('/articles',function(req,res){
      Article.deleteMany(function(err){
