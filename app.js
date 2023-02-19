@@ -107,7 +107,20 @@ app.route('/articles').get(function(req,res)
         res.send("No such Article found named " + req.params.articleTitle);
        }
    });
-
+//To update a specific article
+  }).put(function(req,res){
+    Article.updateOne({title:req.params.articleTitle},
+        {$set: { content:req.body.content,title:req.body.title}},function(err,foundArticle){
+            if(!err){
+                res.send("Successfully updated")
+                console.log(`$title${req.params.articleTitle}} + " "+${req.body.title}
+                `)
+            }
+           else{
+            res.send("Error updating article"+err.message) 
+           }
+        }
+        );
   });
   //371 signing off... 
   
