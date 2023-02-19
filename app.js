@@ -113,14 +113,31 @@ app.route('/articles').get(function(req,res)
         {$set: { content:req.body.content,title:req.body.title}},function(err,foundArticle){
             if(!err){
                 res.send("Successfully updated")
-                console.log(`$title${req.params.articleTitle}} + " "+${req.body.title}
-                `)
+                
             }
            else{
             res.send("Error updating article"+err.message) 
            }
         }
         );
-  });
-  //371 signing off... 
-  
+  })
+//If you want to Update a specific Field
+  .patch(function(req,res){
+    Article.updateOne({title:req.params.articleTitle},{$set:req.body},function(err){
+        if(!err){
+            res.send("Successfully updated")
+        }else{
+            res.send("Error updating article"+err.message)
+        }
+    })
+
+  }).delete(function(req,res){
+
+    Article.deleteOne({title:req.params.articleTitle},function(err){
+        if(err){
+            res.send("Error deleting article"+err.message)
+        }else{
+            res.send("Successfully deleted")
+        }
+    })
+  })
