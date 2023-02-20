@@ -137,7 +137,7 @@ app.route('/articles').get(function(req,res)
         if(err){
             res.send("Error deleting article"+err.message)
         }else{
-            res.send("Successfully deleted")
+            res.send("Done deleting article")
         }
     })
   })
